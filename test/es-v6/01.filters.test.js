@@ -20,8 +20,8 @@ describe('Connector', function() {
     var modelName = 'MockLoopbackModel';
     var defaults = testConnector.addDefaults(modelName);
 
-    expect(defaults.index).to.be.a('string').to.have.length.above(1).to.match(/^[a-z0-9.-_]+$/i);
-    expect(defaults.type).to.be.a('string').to.have.length.above(1).to.match(/^[a-z0-9.-_]+$/i);
+    expect(defaults.index).to.be.a('string').to.have.length.above(1).to.match(/^[a-z0-9._-]+$/i);
+    expect(defaults.type).to.be.a('string').to.have.length.above(1).to.match(/^[a-z0-9._-]+$/i);
 
     done();
   });
@@ -59,13 +59,10 @@ describe('Connector', function() {
         ],
         query: { // c. here we are testing the bigger picture `should build a query for the WHERE filter`
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
               match: {
                 title: 'Futuro'
-              }
-            }, {
-              match: {
-                docType: modelName
               }
             }]
           }
@@ -80,7 +77,9 @@ describe('Connector', function() {
     done();
   });
 
-  it('should use a NATIVE filter query as-is', function(done) {
+  // Native queries are disabled in lib/buildFilter.js until they can be
+  // restricted to the requesting model, so this expectation no longer holds.
+  it.skip('should use a NATIVE filter query as-is', function(done) {
     var criteria, size, offset, modelName, modelIdName, settings, mappingType;
     criteria = {
       'native': {
@@ -163,19 +162,15 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
-                match: {
+                match_phrase: {
                   name: 'John Lennon'
                 }
               },
               {
                 match: {
                   role: 'lead'
-                }
-              },
-              {
-                match: {
-                  docType: modelName
                 }
               }
             ]
@@ -224,6 +219,7 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
                 terms: {
                   _id: [
@@ -236,11 +232,6 @@ describe('Connector', function() {
               {
                 match: {
                   vip: true
-                }
-              },
-              {
-                match: {
-                  docType: modelName
                 }
               }
             ]
@@ -288,11 +279,8 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
-              match: {
-                docType: modelName
-              }
-            }, {
               bool: {
                 should: [{
                     bool: {
@@ -365,6 +353,7 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
                 bool: {
                   should: [{
@@ -387,11 +376,6 @@ describe('Connector', function() {
               {
                 match: {
                   role: 'lead'
-                }
-              },
-              {
-                match: {
-                  docType: modelName
                 }
               }
             ]
@@ -438,11 +422,8 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
-              match: {
-                docType: modelName
-              }
-            }, {
               bool: {
                 must_not: [{
                   terms: {
@@ -499,6 +480,7 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
                 bool: {
                   must_not: [{
@@ -515,11 +497,6 @@ describe('Connector', function() {
               {
                 match: {
                   vip: true
-                }
-              },
-              {
-                match: {
-                  docType: modelName
                 }
               }
             ]
@@ -566,16 +543,13 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
               range: {
                 order: {
                   gte: 3,
                   lte: 6
                 }
-              }
-            }, {
-              match: {
-                docType: modelName
               }
             }]
           }
@@ -622,6 +596,7 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
                 range: {
                   order: {
@@ -633,10 +608,6 @@ describe('Connector', function() {
               {
                 match: {
                   vip: true
-                }
-              }, {
-                match: {
-                  docType: modelName
                 }
               }
             ]
@@ -682,6 +653,7 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
                 match: {
                   role: 'lead'
@@ -690,10 +662,6 @@ describe('Connector', function() {
               {
                 match: {
                   vip: true
-                }
-              }, {
-                match: {
-                  docType: modelName
                 }
               }
             ]
@@ -740,6 +708,7 @@ describe('Connector', function() {
         ],
         query: {
           bool: {
+            filter: [{ term: { docType: modelName } }],
             must: [{
                 terms: {
                   role: [
@@ -763,10 +732,6 @@ describe('Connector', function() {
                     4,
                     5
                   ]
-                }
-              }, {
-                match: {
-                  docType: modelName
                 }
               }
             ]

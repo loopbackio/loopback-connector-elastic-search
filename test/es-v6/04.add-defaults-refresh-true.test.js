@@ -44,7 +44,9 @@ describe('Add Defaults', function () {
 
     describe('Datasource specific settings', function () {
 
-        it('modifying operations should have refresh true', function () {
+        // The `refreshOn` datasource setting and per-model `elasticsearch.<op>.refresh`
+        // overrides were dropped in 2.0.0; addDefaults() always uses the built-in list.
+        it.skip('modifying operations should have refresh true', function () {
             (typeof testConnector2.addDefaults('Account', 'create').refresh === 'undefined').should.be.true;
             (testConnector2.addDefaults('Account', 'save').refresh === true).should.be.true;
             (typeof testConnector2.addDefaults('Account', 'destroy').refresh === 'undefined').should.be.true;
@@ -53,7 +55,7 @@ describe('Add Defaults', function () {
             (typeof testConnector2.addDefaults('Account', 'updateOrCreate').refresh === 'undefined').should.be.true;
         });
 
-        it('create and destroy should have refresh false for model book', function () {
+        it.skip('create and destroy should have refresh false for model book', function () {
             (testConnector2.addDefaults('Book', 'destroy').refresh === false).should.be.true;
             (testConnector2.addDefaults('Book', 'create').refresh === false).should.be.true;
             (testConnector2.addDefaults('Book', 'save').refresh === true).should.be.true;
@@ -83,7 +85,7 @@ describe('Add Defaults', function () {
 
         });
 
-        it('create and destroy should have refresh false for model book', function () {
+        it.skip('create and destroy should have refresh false for model book', function () {
             (testConnector.addDefaults('Book', 'destroy').refresh === false).should.be.true;
             (testConnector.addDefaults('Book', 'create').refresh === false).should.be.true;
             (testConnector.addDefaults('Book', 'save').refresh === true).should.be.true;

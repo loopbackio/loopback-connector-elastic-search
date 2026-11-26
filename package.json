@@ -4,15 +4,11 @@
   "description": "LoopBack Connector for Elasticsearch 6.x and 7.x",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint .",
-    "test": "mocha --recursive",
-    "testv6": "mocha test/es-v6/**/*.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint"
-    }
+    "lint": "eslint .",
+    "test": "mocha test/es-v7",
+    "test:v6": "mocha test/es-v6",
+    "test:v7": "mocha test/es-v7",
+    "prepare": "husky || true"
   },
   "keywords": [
     "loopback",
@@ -57,34 +53,28 @@
   },
   "homepage": "https://github.com/strongloop-community/loopback-connector-elastic-search",
   "dependencies": {
-    "async": "3.1.0",
-    "debug": "3.2.6",
-    "elasticsearch": "15.2.0",
-    "es6": "npm:@elastic/elasticsearch@6",
-    "es7": "npm:@elastic/elasticsearch@7",
-    "lodash": "4.17.11",
-    "loopback-connector": "4.9.0",
-    "ramda": "^0.26.1"
+    "debug": "^4.4.3",
+    "es6": "npm:@elastic/elasticsearch@^6.8.8",
+    "es7": "npm:@elastic/elasticsearch@^7.17.14",
+    "lodash": "^4.18.1",
+    "loopback-connector": "^8.0.5",
+    "ramda": "^0.32.0"
   },
   "directories": {
     "example": "examples",
     "test": "test"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-mocha-test": "^0.12.1",
-    "loopback-datasource-juggler": "^2.55.3",
-    "should": "^5.2.0",
-    "chai": "4.1.2",
-    "eslint": "6.5.1",
-    "eslint-config-airbnb": "18.0.1",
-    "eslint-config-loopback": "8.0.0",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.15.0",
-    "husky": "1.0.1",
-    "mocha": "5.2.0",
-    "sonarqube-scanner": "2.5.0",
-    "supertest": "3.0.0"
+    "async": "^3.2.6",
+    "chai": "^6.3.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "husky": "^9.1.7",
+    "loopback-datasource-juggler": "^7.0.5",
+    "mocha": "^12.0.3"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

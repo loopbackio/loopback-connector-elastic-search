@@ -1,11 +1,16 @@
 {
-  "extends": "airbnb",
+  "extends": "airbnb-base",
+  "env": {
+    "node": true
+  },
   "rules": {
     "comma-dangle": "off",
     "global-require":"off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "function-paren-newline": "off",
+    "function-call-argument-newline": "off"
   },
   "parserOptions": {
-    "ecmaVersion": 8
+    "ecmaVersion": 2022
   }
 }

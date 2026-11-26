@@ -74,6 +74,9 @@ describe('basic-querying-no-timeout', function () {
       id: {type: String},
       title: {type: String, length: 255},
       content: {type: String}
+    }, {
+      // juggler 4+ rejects a client-supplied value for a generated id unless forceId is off
+      forceId: false
     });
 
     Category = db.define('Category', {

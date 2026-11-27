@@ -28,7 +28,7 @@ jobs:
       - run: npm run lint
 
   test:
-    name: test (Node ${{ matrix.node }}, ES ${{ matrix.es.version }})
+    name: test (Node ${{ matrix.node }}, ${{ matrix.engine.name }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -37,17 +37,35 @@ jobs:
         # Every Node.js release line that is LTS or Current:
         # https://github.com/nodejs/Release#release-schedule
         node: [22, 24, 26]
-        es:
-          - version: 6.8.23
-            major: 6
-          - version: 7.17.25
-            major: 7
+        # OpenSearch lines that are not end-of-life:
+        # https://opensearch.org/releases/
+        engine:
+          - name: Elasticsearch 6.8.23
+            image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23
+            suite: 6
+            distribution: elasticsearch
+          - name: Elasticsearch 7.17.25
+            image: docker.elastic.co/elasticsearch/elasticsearch:7.17.25
+            suite: 7
+            distribution: elasticsearch
+          - name: OpenSearch 2.19.8
+            image: opensearchproject/opensearch:2.19.8
+            suite: 7
+            distribution: opensearch
+          - name: OpenSearch 3.10.1
+            image: opensearchproject/opensearch:3.10.1
+            suite: 7
+            distribution: opensearch
     services:
-      elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:${{ matrix.es.version }}
+      search:
+        image: ${{ matrix.engine.image }}
         env:
           discovery.type: single-node
           ES_JAVA_OPTS: -Xms512m -Xmx512m
+          OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+          # OpenSearch only; Elasticsearch ignores these
+          DISABLE_SECURITY_PLUGIN: 'true'
+          DISABLE_INSTALL_DEMO_CONFIG: 'true'
         ports:
           - 9200:9200
         options: >-
@@ -57,6 +75,7 @@ jobs:
           --health-retries 30
     env:
       ELASTICSEARCH_URL: http://localhost:9200
+      SEARCH_DISTRIBUTION: ${{ matrix.engine.distribution }}
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-node@v7.1.0
@@ -64,4 +83,4 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
       - run: npm ci
-      - run: npm run test:v${{ matrix.es.major }}
+      - run: npm run test:v${{ matrix.engine.suite }}

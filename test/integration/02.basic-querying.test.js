@@ -1731,6 +1731,7 @@ describe('basic-querying', function () {
           User.updateAll({seq: user.seq},{order: 10}, function (err,update) {
             should.not.exist(err);
             should.exist(update);
+            update.should.have.property('count', 1);
             setTimeout(function () {
               User.findById(user.seq, function (err, updatedUser) {
                 should.not.exist(err);

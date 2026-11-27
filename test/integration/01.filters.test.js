@@ -48,13 +48,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: { // c. here we are testing the bigger picture `should build a query for the WHERE filter`
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -149,13 +144,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -206,13 +196,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -266,13 +251,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -340,13 +320,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -409,13 +384,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -467,13 +437,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -530,13 +495,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -583,13 +543,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -640,13 +595,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],
@@ -695,13 +645,8 @@ describe('Connector', function() {
     expect(filterCriteria).to.have.property('body')
       .that.is.an('object')
       .that.deep.equals({ // a. this is really 2 tests in one
-        sort: [
-          // b. `_id` is an auto-generated field that ElasticSearch populates for us
-          // when we want to let the backend/system/ES take care of id population
-          // so if we want to sort by id, without specifying/controlling our own id field,
-          // then ofcourse the sort must happen on `_id`, this part of the test, validates that!
-          '_id'
-        ],
+        // b. no default sort: server-generated ids only exist as `_id`, which
+        // Elasticsearch 8+ cannot sort on without fielddata
         query: {
           bool: {
             filter: [{ term: { docType: modelName } }],

@@ -1,7 +1,7 @@
 {
   "name": "elasticsearch-example-index-datasource",
   "connector": "esv6",
-  "version": 6,
+  "version": 9,
   "index": "example-index",
   "configuration": {
     "node": "http://localhost:9200",
@@ -13,7 +13,6 @@
     "number_of_shards": 2,
     "number_of_replicas": 1
   },
-  "mappingType": "basedata",
   "mappingProperties": {
     "docType": {
       "type": "keyword",

@@ -15,7 +15,13 @@ global.should = chai.should(); // Why is the function being executed? Because th
 
 global._ = require('lodash'); /*global _:true*/
 
-var settings = require('./datasource-test-v6-plain.json');
+var settings = require('./datasource-test-plain.json');
+if (process.env.SEARCH_VERSION) {
+    settings.version = Number(process.env.SEARCH_VERSION);
+}
+if (process.env.SEARCH_DISTRIBUTION) {
+    settings.distribution = process.env.SEARCH_DISTRIBUTION;
+}
 if (process.env.ELASTICSEARCH_URL) {
     settings.configuration.node = process.env.ELASTICSEARCH_URL;
 }

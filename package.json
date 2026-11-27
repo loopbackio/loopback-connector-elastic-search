@@ -1,13 +1,11 @@
 {
   "name": "loopback-connector-esv6",
   "version": "2.1.1",
-  "description": "LoopBack Connector for Elasticsearch 6.x and 7.x",
+  "description": "LoopBack Connector for Elasticsearch 8.x/9.x and OpenSearch 2.x/3.x",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha test/es-v7",
-    "test:v6": "mocha test/es-v6",
-    "test:v7": "mocha test/es-v7",
+    "test": "mocha test/integration",
     "prepare": "husky || true"
   },
   "keywords": [
@@ -53,19 +51,30 @@
   },
   "homepage": "https://github.com/strongloop-community/loopback-connector-elastic-search",
   "dependencies": {
-    "@opensearch-project/opensearch": "^3.10.0",
     "debug": "^4.4.3",
-    "es6": "npm:@elastic/elasticsearch@^6.8.8",
-    "es7": "npm:@elastic/elasticsearch@^7.17.14",
     "lodash": "^4.18.1",
     "loopback-connector": "^8.0.5",
     "ramda": "^0.32.0"
+  },
+  "peerDependencies": {
+    "@elastic/elasticsearch": "^8.19.2 || ^9.5.1",
+    "@opensearch-project/opensearch": "^3.10.0"
+  },
+  "peerDependenciesMeta": {
+    "@elastic/elasticsearch": {
+      "optional": true
+    },
+    "@opensearch-project/opensearch": {
+      "optional": true
+    }
   },
   "directories": {
     "example": "examples",
     "test": "test"
   },
   "devDependencies": {
+    "@elastic/elasticsearch": "^9.5.1",
+    "@opensearch-project/opensearch": "^3.10.0",
     "async": "^3.2.6",
     "chai": "^6.3.0",
     "eslint": "^8.57.1",

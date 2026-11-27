@@ -1,5 +1,4 @@
 /test
-/examples
 .idea
 .jshintrc
 docker-compose.json

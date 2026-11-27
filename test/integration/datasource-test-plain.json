@@ -61,6 +61,12 @@
     "created": {
       "type": "date",
       "index": true
+    },
+    "location": {
+      "type": "geo_point"
+    },
+    "area": {
+      "type": "geo_shape"
     }
   }
 }

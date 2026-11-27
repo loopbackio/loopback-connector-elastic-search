@@ -1,4 +1,3 @@
 .idea
 node_modules
-examples/db.json
 test/**/*.log

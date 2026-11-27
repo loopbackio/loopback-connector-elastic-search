@@ -1231,7 +1231,9 @@ describe('basic-querying', function () {
       this.timeout(6000);
       // NOTE: ES indexing then searching isn't real-time ... its near-real-time
       setTimeout(function () {
-        User.destroyAll({name: 'John Lennon'}, function () {
+        User.destroyAll({name: 'John Lennon'}, function (err, info) {
+          should.not.exist(err);
+          info.should.have.property('count', 1);
           setTimeout(function () {
             User.find({where: {name: 'John Lennon'}}, function (err, data) {
               should.not.exist(err);
@@ -1731,6 +1733,7 @@ describe('basic-querying', function () {
           User.updateAll({seq: user.seq},{order: 10}, function (err,update) {
             should.not.exist(err);
             should.exist(update);
+            update.should.have.property('count', 1);
             setTimeout(function () {
               User.findById(user.seq, function (err, updatedUser) {
                 should.not.exist(err);

@@ -686,4 +686,81 @@ describe('Connector', function() {
 
     done();
   });
+
+  describe('geo filters', function() {
+    var point = { lat: 3.1579, lon: 101.7116 };
+
+    function buildQuery(where, connector) {
+      return (connector || testConnector)
+        .buildFilter('MockLoopbackModel', 'id', { where: where }, 100, 0).body.query;
+    }
+
+    it('should add a top-level "geo_distance" next to the docType filter', function() {
+      var geoDistance = { distance: '10km', location: point };
+      expect(buildQuery({ location: { geo_distance: geoDistance } })).to.deep.equal({
+        bool: {
+          filter: [
+            { geo_distance: geoDistance },
+            { term: { docType: 'MockLoopbackModel' } }
+          ]
+        }
+      });
+    });
+
+    it('should add a top-level "geo_bounding_box" next to other conditions', function() {
+      var box = { location: { top_left: { lat: 7, lon: 99.5 }, bottom_right: { lat: 1.5, lon: 104.5 } } };
+      expect(buildQuery({ name: 'klcc', location: { geo_bounding_box: box } })).to.deep.equal({
+        bool: {
+          must: [{ match: { name: 'klcc' } }],
+          filter: [
+            { geo_bounding_box: box },
+            { term: { docType: 'MockLoopbackModel' } }
+          ]
+        }
+      });
+    });
+
+    it('should wrap a "geo_shape" inside "and" in its own bool filter', function() {
+      var shape = {
+        area: {
+          shape: { type: 'envelope', coordinates: [[103.75, 1.4], [103.95, 1.2]] },
+          relation: 'intersects'
+        }
+      };
+      expect(buildQuery({ and: [{ role: 'lead' }, { area: { geo_shape: shape } }] })).to.deep.equal({
+        bool: {
+          must: [
+            { match: { role: 'lead' } },
+            { bool: { filter: [{ geo_shape: shape }] } }
+          ],
+          filter: [{ term: { docType: 'MockLoopbackModel' } }]
+        }
+      });
+    });
+
+    it('should wrap a geo filter on a nested field in a "nested" query', function() {
+      var settings = getSettings();
+      settings.log = 'error';
+      settings.mappingProperties.branches = {
+        type: 'nested',
+        properties: { location: { type: 'geo_point' } }
+      };
+      var datasource = getDataSource(settings);
+      datasource.define('MockLoopbackModel', { id: { type: String, generated: true, id: true } });
+      var connector = datasource.connector;
+      var geoDistance = { distance: '10km', 'branches.location': point };
+      expect(buildQuery({ 'branches.location': { geo_distance: geoDistance } }, connector)).to.deep.equal({
+        bool: {
+          must: [{
+            nested: {
+              path: 'branches',
+              score_mode: 'max',
+              query: { bool: { filter: [{ geo_distance: geoDistance }] } }
+            }
+          }],
+          filter: [{ term: { docType: 'MockLoopbackModel' } }]
+        }
+      });
+    });
+  });
 });

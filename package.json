@@ -53,6 +53,7 @@
   },
   "homepage": "https://github.com/strongloop-community/loopback-connector-elastic-search",
   "dependencies": {
+    "@opensearch-project/opensearch": "^3.10.0",
     "debug": "^4.4.3",
     "es6": "npm:@elastic/elasticsearch@^6.8.8",
     "es7": "npm:@elastic/elasticsearch@^7.17.14",

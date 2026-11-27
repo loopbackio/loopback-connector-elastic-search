@@ -55,7 +55,7 @@ npm install loopback-connector-esv6 --save --save-exact
 ### Important Note
 
 - **This connector will only connect to one index per datasource.**
-- This package is created to support ElasticSearch v6.x and 7.x only.
+- This package is created to support ElasticSearch v6.x and 7.x, and OpenSearch 2.x and 3.x (set `distribution: "opensearch"`).
 - `docType` property is automatically added in mapping properties which is required to differentiate documents stored in index with loopback model data. It stores loopback modelName value. `docType: { type: "keyword", index: true }`
 
 ### Required
@@ -72,6 +72,7 @@ npm install loopback-connector-esv6 --save --save-exact
 
 - **indexSettings:** optional settings object for creating index.
 - **defaultSize:** Search size limit. Default is 50.
+- **distribution:** `"elasticsearch"` (default) or `"opensearch"`. With `"opensearch"`, the connector uses the [OpenSearch JavaScript client](https://github.com/opensearch-project/opensearch-js) and `configuration` is passed to it. Set `version: 7`, because OpenSearch has no mapping types.
 
 ### Sample
 
